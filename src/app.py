@@ -5,8 +5,8 @@ app= Flask(__name__)
 
 def fetchDeatils():
     host_name=socket.gethostname()
-    host_ip=socker.gethostbyname(host_name)
-    return host_name, host_ip
+    host_ip=socket.gethostbyname(host_name)
+    return str(host_name), str(host_ip)
 
 @app.route("/")
 def hello_world():
@@ -20,7 +20,8 @@ def health():
 
 @app.route("/details")
 def details():
-    return render_template('index.html')
+    host_name,host_ip= fetchDeatils()
+    return render_template('index.html', HOSTNAME=host_name,IP=host_ip)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80)
